@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Building Messenger App'),
+      home: MyHomePage(title: 'Building Messenger App!'),
     );
   }
 }
