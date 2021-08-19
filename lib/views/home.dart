@@ -1,5 +1,7 @@
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/views/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,25 +20,42 @@ class _HomeState extends State<Home> {
           InkWell(
             onTap: () {
               AuthMethods().signOut().then((s) {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => SignIn() ))
-                )//then
-              
+               // Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => SignIn() ));
+               Get.to(SignIn());   
             });
+            },
             child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)
-                ),
-          )
+                child: Icon(Icons.exit_to_app)),
+                )      
         ],
       ),
       body: Container(
+        margin: EdgeInsets.symmetric(horizontal:20),
         child: Column(
           children: [
-            Row(
-              children: [Expanded(child: TextField(decoration: 
-              InpputDecoration(border:InputBorder.none,hintText:"username",
-              
-              )): TextField()),Icon(Icons.search)],
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              decoration:BoxDecoration(
+                border:   Border.all(
+                  color: Colors.black87,
+                  width: 1.0,
+                  style:BorderStyle.solid),
+                  borderRadius:BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    child: Expanded(
+                    child: TextField(
+                      decoration:InputDecoration(
+                        border:InputBorder.none,hintText:"username"),
+                    )),
+                  ),          
+                Icon(Icons.search),
+                ],
+              ),
             )
           ],
         ),
