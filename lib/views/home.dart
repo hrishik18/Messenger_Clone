@@ -1,5 +1,7 @@
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/services/database.dart';
 import 'package:chat_app/views/signin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,36 @@ class _HomeState extends State<Home> {
   bool isSearching = false;
   TextEditingController searchUsernameEditingController =
       TextEditingController();
+
+  late Stream userStream;
+
+  onSearchBtnClick() async {
+    isSearching = !isSearching;
+    setState(() {});
+    userStream = await DatabaseMethods()
+        .getByUserName(searchUsernameEditingController.text);
+  }
+
+  Widget searchUsersList() {
+    return StreamBuilder(
+      stream: userStream,
+      builder: (context, snapshot) {
+        return snapshot.hasData ? ListView.builder(
+          itemCount: snapshot.data.docs.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            //return Image.network(
+            DocumentSnapshot ds = snapshot.data!.docs[index];
+            return Image.network(ds["imgUrl"],height: 30,width: 30,);
+          },
+        ):Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+
+  Widget chatRoomList(){
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +105,16 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          isSearching = !isSearching;
-                          setState(() {});
+                          if (searchUsernameEditingController.text != "") {
+                            onSearchBtnClick();
+                          }
                         },
                         child: Icon(Icons.search)),
                   ],
                 ),
               ),
             )
+            isSearching ? searchUsersList():chatRoomList(),
           ],
         ),
       ),
