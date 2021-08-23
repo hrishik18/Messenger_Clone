@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
+//shared pref error
 class HelperFunctions{
 
   static String sharedPreferenceUserLoggedInKey = "ISLOGGEDIN";
