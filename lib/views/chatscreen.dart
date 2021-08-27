@@ -50,11 +50,27 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Container(
         child: Stack(
           children: [
-            Container(
-              child: Row(
-                children: [Expanded(child:TextField()),Icon(Icons.send)],
-                ),
-            )
+               Container(
+                 alignment: Alignment.bottomCenter,
+                 child: Container(
+                   color: Colors.black.withOpacity(0.8),
+                   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                 child: Row(
+                 children: [Expanded(child:TextField(
+                   style: TextStyle(color: Colors.white),
+                   decoration:InputDecoration(
+                   border: InputBorder.none,
+                   hintText: "Type here",
+                   //hintStyle: TextStyle(fontWeight: FontWeight.w500)
+                 ),
+                 )
+                 ),Icon(
+                   Icons.send,
+                   color: Colors.white,
+                   )],
+                  ),
+                 ),
+               )
           ],
         ),
       ),
